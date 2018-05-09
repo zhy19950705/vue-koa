@@ -2,12 +2,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import './icons'
+
 import {
   Button,
   Row,
-  Col
+  Col,
+  Swipe,
+  SwipeItem,
+  Lazyload
 } from 'vant'
-Vue.use(Button).use(Row).use(Col)
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload)
+// Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
 
