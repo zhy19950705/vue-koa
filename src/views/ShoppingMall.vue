@@ -29,38 +29,73 @@
       <div class="ad-banner">
         <img v-lazy='adBanner.PICTURE_ADDRESS' width="100%" />
       </div>
+      <div class="recommend-area">
+         <div class="recommend-title">
+            商品推荐
+         </div>
+         <div class="recommend-body">
+             <div class="floor">
+               <div class="floor-anomaly">
+                 <div class="floor-one"><img :src="floor1_0.image" width="100%"></div>
+               </div>
+             <div>
+                 <div class="floor-two"><img :src="floor1_1.image" width="100%"></div>
+                 <div><img :src="floor1_2.image" width="100%"></div>
+             </div>
+             <div class="floor-rule">
+                <div v-for="(item,index) in floor1.slice(3)" :key="index">
+                 <img :src='item.image'  width="100%">
+                </div>
+             </div>
+             </div>
+         </div>
+      </div>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
+
 export default {
   data() {
     return {
-      bannerPicArray:[],
-      category:[],
-      adBanner:[]
+      bannerPicArray: [],
+      category: [],
+      adBanner: [],
+      recommendGoods: [],
+      floor1: [],
+      floor1_0:{},
+      floor1_1:{},
+      floor1_2:{}
     };
   },
-  created () {
+  components: {},
+  created() {
     axios({
-      url: 'https://www.easy-mock.com/mock/5ab0cb4eb38a7b7e2b5f06ad/vue/happy',
-      method: 'get'
-    }).then(response => {
-      console.log(response);
-      if(response.status==200){
-        this.bannerPicArray=response.data.data.slides;
-        this.category=response.data.data.category;
-        this.adBanner=response.data.data.advertesPicture;
-      }
-    }).catch(error => {
-      console.log(error)
+      url: "https://www.easy-mock.com/mock/5ab0cb4eb38a7b7e2b5f06ad/vue/happy",
+      method: "get"
     })
+      .then(response => {
+        console.log(response);
+        if (response.status == 200) {
+          this.bannerPicArray = response.data.data.slides;
+          this.category = response.data.data.category;
+          this.adBanner = response.data.data.advertesPicture;
+          this.recommendGoods = response.data.data.recommend;
+          this.floor1 = response.data.data.floor1;
+          this.floor1_0 = this.floor1[0];
+          this.floor1_1 = this.floor1[1];
+          this.floor1_2 = this.floor1[2];
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
 <style lang=scss>
-$dark_gray: #a8a4a5;
-$background-color:#fff;
+$border:1px solid #ddd;
+$background-color: #fff;
 .search-bar {
   height: 2.2rem;
   /* background-color: #d704e1; */
@@ -68,12 +103,12 @@ $background-color:#fff;
 }
 .svg-container {
   /* display: inline-block; */
-  padding-top: .2rem;
-  padding-left: .3rem;
-  color: $dark_gray;
+  padding-top: 0.2rem;
+  padding-left: 0.3rem;
+  /* color: $dark_gray; */
   /* vertical-align: middle; */
 }
-.search-input{
+.search-input {
   width: 100%;
   line-height: 1.3rem;
   border-top: 0px;
@@ -81,23 +116,69 @@ $background-color:#fff;
   border-left: 0px;
   border-right: 0px;
 }
-.swipe-area{
+.swipe-area {
   width: 20rem;
   clear: both;
 }
-.type-bar{
-  background-color:$background-color;
-  margin: 0 .3rem .3rem .3rem;
-  border-radius: .3rem;
+.type-bar {
+  background-color: $background-color;
+  margin: 0 0.3rem 0.3rem 0.3rem;
+  border-radius: 0.3rem;
   font-size: 14px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  div{
-    padding: .3rem;
+  div {
+    padding: 0.3rem;
     font-size: 12px;
-    text-align: center
+    text-align: center;
   }
 }
+.recommend-area {
+  background-color: $background-color;
+  margin-top: 0.3rem;
+  .recommend-title {
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    padding: 0.2rem;
+    color: #e5017d;
+  }
+  .recommend-body {
+    .floor-anomaly{
+      display: flex;
+      flex-direction: row;
+      background-color: $background-color;
+      border-bottom: $border;
+      div{
+        width: 10rem;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+      }
+      .floor-one{
+        border-right:$border;
+        .floor-two{
+          border-bottom: $border;
+        }
+      }
+    }
+    .floor-rule{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      background-color: $background-color;
+      div{
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 10rem;
+        border-bottom: $border;
+      }
+      div:nth-child(odd){
+        border-right:$border 
+      }
+    }
+
+  }
+}
+
 </style>
 
