@@ -50,11 +50,23 @@
              </div>
          </div>
       </div>
+      <div class='hot-area'>
+          <div class="hot-title">热卖商品</div>
+          <div class='hot-goods'>
+            <van-list>
+              <van-row gutter="20">
+                <van-col span="12" v-for="(item,index) in hotGoods" :key="index">
+                  <goods-info :goodsImage="item.image" :goodsName="item.name" :goodsPrice="item.price"></goods-info>
+                </van-col>
+              </van-row>
+            </van-list>
+          </div>
+      </div>
   </div>
 </template>
 <script>
 import axios from "axios";
-
+import goodsInfo from '../components/goodsInfoComponent'
 export default {
   data() {
     return {
@@ -65,10 +77,11 @@ export default {
       floor1: [],
       floor1_0:{},
       floor1_1:{},
-      floor1_2:{}
+      floor1_2:{},
+      hotGoods:[]
     };
   },
-  components: {},
+  components: {goodsInfo},
   created() {
     axios({
       url: "https://www.easy-mock.com/mock/5ab0cb4eb38a7b7e2b5f06ad/vue/happy",
@@ -85,11 +98,15 @@ export default {
           this.floor1_0 = this.floor1[0];
           this.floor1_1 = this.floor1[1];
           this.floor1_2 = this.floor1[2];
+          this.hotGoods=response.data.data.hotGoods;
         }
       })
       .catch(error => {
         console.log(error);
       });
+  },
+  filters:{
+
   }
 };
 </script>
@@ -177,6 +194,12 @@ $background-color: #fff;
       }
     }
 
+  }
+  .hot-area{
+    text-align:center;
+    font-size:14px;
+    height:1.8rem;
+    line-height:1.8rem;
   }
 }
 
