@@ -11,9 +11,11 @@ import {
   Swipe,
   SwipeItem,
   Lazyload,
-  List
+  List,
+  Field,
+  NavBar
 } from 'vant'
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(List)
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(List).use(Field).use(NavBar)
 // Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false

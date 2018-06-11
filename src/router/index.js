@@ -9,6 +9,12 @@ export default new Router({
   routes: [{
     path: '/',
     name: 'ShoppingMall',
-    component: ()=>import('@/views/ShoppingMall')
-  }]
+    component: () => import('@/views/ShoppingMall')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/components/pages/Register')
+  }
+  ]
 })
